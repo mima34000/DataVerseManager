@@ -32,6 +32,7 @@ namespace DataVerseManager.UI
                         {
                             "Add Expense",
                             "View All Expenses",
+                            "Update Expense",
                             "Delete Expense",
                             "Search Expenses",
                             "Save and Exit"
@@ -44,6 +45,9 @@ namespace DataVerseManager.UI
                         break;
                     case "View All Expenses":
                         ViewExpenses();
+                        break;
+                    case "Update Expense":
+                        UpdateExpense();
                         break;
                     case "Delete Expense":
                         DeleteExpense();
@@ -111,6 +115,36 @@ namespace DataVerseManager.UI
             }
 
             AnsiConsole.Write(table);
+            Console.ReadKey();
+        }
+
+        // updates an existing expense by id
+        private void UpdateExpense()
+        {
+            var expenses = _store.GetAll();
+
+            if (expenses.Count == 0)
+            {
+                AnsiConsole.MarkupLine("[red]No expenses to update.[/]");
+                Console.ReadKey();
+                return;
+            }
+
+            var id = AnsiConsole.Ask<int>("Enter expense ID to update:");
+            var expense = expenses.FirstOrDefault(e => e.Id == id);
+
+            if (expense == null)
+            {
+                AnsiConsole.MarkupLine("[red]Expense not found.[/]");
+                Console.ReadKey();
+                return;
+            }
+
+            expense.Name = AnsiConsole.Ask<string>("New name:", expense.Name);
+            expense.Amount = AnsiConsole.Ask<decimal>("New amount:", expense.Amount);
+            expense.Category = AnsiConsole.Ask<string>("New category:", expense.Category);
+
+            AnsiConsole.MarkupLine("[green]Expense updated![/]");
             Console.ReadKey();
         }
 
