@@ -51,4 +51,7 @@ DataVerse Manager is a console application that lets you manage your expenses st
 - **Generic class** - DataStore<T> works with any data type
 
 - - ## Screenshots
-![Budget Manager](screenshot2.png)
+  - [Budget Manager](screenshot2.png)
+
+## Class Diagram
+[Class Diagram](Diagram.png)
