@@ -35,6 +35,7 @@ namespace DataVerseManager.UI
                             "Update Expense",
                             "Delete Expense",
                             "Search Expenses",
+                            "Show Statistics",
                             "Save and Exit"
                         }));
 
@@ -54,6 +55,9 @@ namespace DataVerseManager.UI
                         break;
                     case "Search Expenses":
                         SearchExpenses();
+                        break;
+                    case "Show Statistics":
+                        ShowStatistics();
                         break;
                     case "Save and Exit":
                         _jsonService.Save(_store.GetAll());
@@ -208,6 +212,44 @@ namespace DataVerseManager.UI
                     e.Amount.ToString("C"),
                     e.Category,
                     e.Date.ToShortDateString()
+                );
+            }
+
+            AnsiConsole.Write(table);
+            Console.ReadKey();
+        }
+
+        // shows total spending and breakdown by category
+        private void ShowStatistics()
+        {
+            var expenses = _store.GetAll();
+
+            if (expenses.Count == 0)
+            {
+                AnsiConsole.MarkupLine("[red]No expenses to show statistics for.[/]");
+                Console.ReadKey();
+                return;
+            }
+
+            decimal total = expenses.Sum(e => e.Amount);
+            AnsiConsole.MarkupLine($"[yellow]Total spent: {total:C}[/]");
+            AnsiConsole.MarkupLine($"[yellow]Number of expenses: {expenses.Count}[/]");
+
+            var table = new Table();
+            table.AddColumn("Category");
+            table.AddColumn("Total Amount");
+            table.AddColumn("Number of Expenses");
+
+            var grouped = expenses
+                .GroupBy(e => e.Category)
+                .OrderByDescending(g => g.Sum(e => e.Amount));
+
+            foreach (var group in grouped)
+            {
+                table.AddRow(
+                    group.Key,
+                    group.Sum(e => e.Amount).ToString("C"),
+                    group.Count().ToString()
                 );
             }
 

@@ -1,10 +1,8 @@
 ﻿namespace DataVerseManager.Models
 {
-    public class Expense
+    // Expense inherits Id and Date from BaseEntity
+    public class Expense : BaseEntity
     {
-        // unique id for each expense
-        public int Id { get; set; }
-
         // name of the expense, e.g. "Groceries"
         public string Name { get; set; } = "";
 
@@ -13,8 +11,5 @@
 
         // category like "Food", "Transport" etc.
         public string Category { get; set; } = "";
-
-        // date when the expense happened
-        public DateTime Date { get; set; }
     }
 }
