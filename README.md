@@ -20,10 +20,10 @@ DataVerse Manager is a console application that lets you manage your expenses st
 - Data is automatically saved to expenses.json when you exit
 
 ## Project structure
-- Program.cs – this is where the program starts
-- Models/ – contains the Expense class
-- Services/ – DataStore for storing data and JsonService for reading and writing JSON files
-- UI/ – MenuDisplay which handles all the menus and user interaction
+- Program.cs â€“ this is where the program starts
+- Models/ â€“ contains the Expense class
+- Services/ â€“ DataStore for storing data and JsonService for reading and writing JSON files
+- UI/ â€“ MenuDisplay which handles all the menus and user interaction
 
 ## OOP concepts used
 - Classes and encapsulation (Expense, DataStore, JsonService)
@@ -35,3 +35,20 @@ DataVerse Manager is a console application that lets you manage your expenses st
 - Spectre.Console for the terminal UI
 - System.Text.Json for saving and loading data
 - LINQ for searching and filtering
+
+## Class Design Overview
+
+- **BaseEntity** - base class that holds Id and Date, shared by all models
+- **Expense** - inherits from BaseEntity and adds Name, Amount and Category
+- **DataStore<T>** - generic class that stores any type of object in a list
+- **JsonService** - handles reading and writing data to a JSON file
+- **MenuDisplay** - handles all user interaction and menus
+
+## OOP Concepts
+- **Encapsulation** - each class manages its own data
+- **Inheritance** - Expense inherits Id and Date from BaseEntity
+- **Polymorphism** - BaseEntity can represent any type of entity
+- **Generic class** - DataStore<T> works with any data type
+
+- - ## Screenshots
+![Budget Manager](screenshot2.png)
